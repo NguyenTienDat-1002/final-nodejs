@@ -21,7 +21,7 @@ module.exports ={
             const Account = await models.User.findOne({ where: { username: req.body.username } });
             console.log(Account.password);
             if(req.body.password == Account.password){
-                const { token } = await generateToken(accountInfor);
+                const { token } = await generateToken(Account.dataValues.id);
                 res.status(200).json({result: 'successful',token,id:Account.dataValues.id});
 
             }else{
