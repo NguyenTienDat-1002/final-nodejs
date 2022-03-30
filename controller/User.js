@@ -40,7 +40,7 @@ module.exports ={
             }
             
         //}catch{
-           // res.status(200).json({result: 'failed'});
+            //res.status(200).json({result: 'failed'});
         //}
         
         
