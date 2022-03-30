@@ -1,3 +1,4 @@
+const path = require('path');
 const models = require('../models/Association');
 const User = require('./User');
 
@@ -22,14 +23,15 @@ module.exports = {
     addProduct: async(req,res)=>{
         try{
             
-            const record = await models.Product.create({
-                name: req.body.name,
-                price: req.body.price
-            });
-            //let image = req.files.image;
-            //image.mv(path.resolve(__dirname,'..','public/pics',image.name), async(error)=>{
-               
-            //})
+             const record = await models.Product.create({
+                 name: req.body.name,
+                 price: req.body.price
+             });
+            let image = req.files.file;
+            console.log(image);
+            image.mv(path.resolve(__dirname,'..','public/pics',record.id+path.extname(req.files.file.name)), async(error)=>{
+               return;
+            })
             res.status(200).json({result: 'successful'});
         }catch{
             res.status(200).json({result: 'failed'});
@@ -37,7 +39,7 @@ module.exports = {
     },
 
     deleteProduct: async(req,res)=>{
-        try{
+        try{ 
             await models.Product.destroy({
                 where:{
                     id: req.params.id
